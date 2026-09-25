@@ -12,3 +12,4 @@ class TaggingConfig(AppConfig):
     name = 'tagging'
     label = 'tagging'
     verbose_name = _('Tagging')
+    default_auto_field = 'django.db.models.AutoField'
