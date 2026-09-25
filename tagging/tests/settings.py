@@ -17,6 +17,7 @@ if DATABASE_ENGINE == 'postgres':
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'tagging',
             'USER': 'postgres',
+            'PASSWORD': 'password',
             'HOST': 'localhost'
         }
     }
@@ -26,7 +27,8 @@ elif DATABASE_ENGINE == 'mysql':
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'zinnia',
             'USER': 'root',
-            'HOST': 'localhost',
+            'PASSWORD': 'password',
+            'HOST': '127.0.0.1',
             'TEST': {
                 'COLLATION': 'utf8_general_ci'
             }

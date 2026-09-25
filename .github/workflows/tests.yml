@@ -1,0 +1,74 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+      - name: Install flake8
+        run: python -m pip install 'flake8==3.7.9'
+      - name: Lint
+        run: python -m flake8 tagging
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        database: [sqlite, postgres, mysql]
+    env:
+      DATABASE_ENGINE: ${{ matrix.database }}
+      DJANGO_SETTINGS_MODULE: tagging.tests.settings
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: tagging
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: zinnia
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd "mysqladmin ping -h localhost -ppassword"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e . 'Django>=3.0,<3.1' 'coverage==5.0.3'
+          if [ "$DATABASE_ENGINE" = postgres ]; then
+            python -m pip install 'psycopg2-binary>=2.8,<3'
+          elif [ "$DATABASE_ENGINE" = mysql ]; then
+            python -m pip install 'mysqlclient>=1.4,<3'
+          fi
+      - name: Test
+        run: |
+          python -m coverage run -m django test tagging.tests
+          python -m coverage report
