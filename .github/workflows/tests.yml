@@ -26,7 +26,7 @@ jobs:
       fail-fast: false
       matrix:
         database: [sqlite, postgres, mysql]
-        django: ['3.2', '4.0']
+        django: ['3.2', '4.0', '4.1']
     env:
       DATABASE_ENGINE: ${{ matrix.database }}
       DJANGO_SETTINGS_MODULE: tagging.tests.settings
