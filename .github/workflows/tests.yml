@@ -33,12 +33,13 @@ jobs:
           - {django: '4.2', python: '3.8'}
           - {django: '4.2', python: '3.12'}
           - {django: '5.0', python: '3.12'}
+          - {django: '5.1', python: '3.12'}
     env:
       DATABASE_ENGINE: ${{ matrix.database }}
       DJANGO_SETTINGS_MODULE: tagging.tests.settings
     services:
       postgres:
-        image: postgres:12
+        image: postgres:13
         env:
           POSTGRES_PASSWORD: password
           POSTGRES_DB: tagging
