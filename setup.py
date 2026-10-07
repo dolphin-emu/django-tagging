@@ -23,7 +23,7 @@ setup(
     license=tagging.__license__,
 
     packages=find_packages(),
-    install_requires=['Django>=3.2,<4.2'],
+    install_requires=['Django>=3.2,<4.3'],
     python_requires='>=3.8,<3.9',
     include_package_data=True,
     zip_safe=False,
@@ -33,6 +33,7 @@ setup(
         'Framework :: Django :: 3.2',
         'Framework :: Django :: 4.0',
         'Framework :: Django :: 4.1',
+        'Framework :: Django :: 4.2',
         'Environment :: Web Environment',
         'Operating System :: OS Independent',
         'Development Status :: 5 - Production/Stable',
