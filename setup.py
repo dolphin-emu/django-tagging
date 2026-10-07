@@ -24,7 +24,7 @@ setup(
 
     packages=find_packages(),
     install_requires=['Django>=3.2,<4.3'],
-    python_requires='>=3.8,<3.9',
+    python_requires='>=3.8,<3.13',
     include_package_data=True,
     zip_safe=False,
 
@@ -42,6 +42,10 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
         'Topic :: Utilities',
         'Topic :: Software Development :: Libraries :: Python Modules']
 )
